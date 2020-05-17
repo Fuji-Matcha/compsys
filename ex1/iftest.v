@@ -1,13 +1,14 @@
 //第2回計算機システム設計論No2
 
 module iftest(input a, b, s, output o);
-	logic o;
-	always_comb begin;
+	logic o; //alwaysブロックの出力はlogic(reg)宣言する。
+	always_comb begin; //ここだけ上から下へ順番に評価される。
 		if (s) o = a;
 		else o = b;	
 	end
 endmodule
 
+//テストブロック
 module test;
 	logic a, b, s, o;
 	initial begin;
