@@ -1,10 +1,13 @@
 // 演習問題(４)自販機
 
-module bending(input rst, clk, en, ten, fif, output logic serv, output logic [1:0] test, output logic [3:0] mon);
+//ten:10円を入れる時にHI,fif:50円を入れる時にHI,serv:ジュース排出,change:おつり値出力
+module bending(input rst, clk, en, ten, fif, output logic serv, output logic [5:0] change);
 
+    //ステート型(myst)を定義
     typedef enum logic [2:0] {ZERO=3'b000, ONE=3'b001, TWO=3'b010, THREE=3'b011,
     FOUR=3'b100, FIVE=3'b101} myst;
 
+    //myst型を宣言
     myst state, nstate;  
 
     always_ff @(posedge clk)begin
@@ -20,65 +23,64 @@ module bending(input rst, clk, en, ten, fif, output logic serv, output logic [1:
             case(state)
             // synopsys full_case parallel_case
             ZERO: begin //例えばtotal=1*ten, if(total==0)などとするとデコーダを作ってしまう
-                if(ten) nstate = ONE;
                 if(fif) begin
                     serv = 1'b1;
-                    mon = 4'b0000;
                     nstate = ZERO;
+                    // change = 6'd00; //これがあると動かないけど理由がわからない(nstateが0からいきなり2に変わる)
                 end
+                else if(ten) nstate = ONE;
             end
             ONE: begin
-                if(ten) nstate = TWO;
                 if(fif) begin
                     serv = 1'b1;
-                    mon = 4'b0001;
                     nstate = ZERO;
+                    change = 6'd10;
                 end
+                else if(ten) nstate = TWO;
             end
             TWO: begin
-                if(ten) nstate = THREE;
                 if(fif) begin
                     serv = 1'b1;
-                    mon = 4'b0010;
                     nstate = ZERO;
+                    change = 6'd20;
                 end
+                else if(ten) nstate = THREE;
             end        
             THREE: begin
-                if(ten) nstate = FOUR;
                 if(fif) begin
                     serv = 1'b1;
-                    mon = 4'b0100;
                     nstate = ZERO;
+                    change = 6'd30;
                 end
+                else if(ten) nstate = FOUR;
             end        
             FOUR: begin
-                if(ten) nstate = FIVE;
                 if(fif) begin
                     serv = 1'b1;
-                    mon = 4'b1000;
                     nstate = ZERO;
-                    test = 2'b10;
+                    change = 6'd40;
                 end
+                else if(ten) nstate = FIVE;
             end
             FIVE: begin
                 serv = 1'b1;
-                mon = 4'b0000;
                 nstate = ZERO;
+                change = 6'd00;
             end
             endcase
         end
+        //プリセット値
         else begin
             serv = 1'b0;
-            mon = 4'b0000;
-            test = 2'b00;
+            change = 6'd00;
         end
     end
 endmodule
 
 module test;
     logic rst, clk, en, ten, fif;
-    logic [1:0] tst;
-    bending bt(rst, clk, en, ten, fif, serv, tst, mon);
+    logic [5:0] change;
+    bending bt(rst, clk, en, ten, fif, serv, change);
     always #5 clk = ~clk;
     
     initial begin
@@ -111,6 +113,7 @@ module test;
         #10
         ten = 1'b0;
         fif = 1'b0;
+        #10
         $finish;
     end
 
