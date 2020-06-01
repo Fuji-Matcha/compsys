@@ -11,5 +11,6 @@
 * ex3/  
 第4回で作ったコード群。カウンタ。
 * ex4/  
-第5回で作ったコード。One Hot State Machine  
+第5回で作ったコード。One Hot State Machine   
+bending_machine.vについて、tenがHIになるとstateが1になり、nstateが即2になる理由がわからん。  
 
