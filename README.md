@@ -13,4 +13,7 @@
 * ex4/  
 第5回で作ったコード。One Hot State Machine   
 bending_machine.vについて、tenがHIになるとstateが1になり、nstateが即2になる理由がわからん。  
+* ex5/  
+第6回で作たコード。verilog!!!.txtのバイナリデータを変数へ格納して出力。  
+
 
