@@ -21,57 +21,37 @@ module bending_mk2(input clk, rst, ten, fif, output logic [2:0] change, output s
             3'b000: begin
                 case({a,b})
                 // synopsys full_case parallel_case
-                    2'b00 : begin
-                        next_state = 3'b000;
-                    end 2'b10 : begin 
-                        next_state = 3'b001;
-                     end 2'b01 : begin 
-                        next_state = 3'b000;
-                    end
+                    2'b00 : next_state = 3'b000;
+                    2'b10 : next_state = 3'b001;
+                    2'b01 : next_state = 3'b000;
                 endcase
             end 3'b001: begin
                 case({a,b})
                 // synopsys full_case parallel_case
-                    2'b00 : begin
-                        next_state = 3'b001;
-                    end 2'b10 : begin 
-                        next_state = 3'b010;
-                    end 2'b01 : begin 
-                        next_state = 3'b001;
-                    end
+                    2'b00 : next_state = 3'b001;
+                    2'b10 : next_state = 3'b010;
+                    2'b01 : next_state = 3'b001;
                 endcase
             end 3'b010: begin
                 case({a,b})
                 // synopsys full_case parallel_case
-                    2'b00 : begin 
-                        next_state = 3'b010;
-                    end 2'b10 : begin 
-                        next_state = 3'b011;
-                    end 2'b01 : begin 
-                        next_state = 3'b010;
-                    end
+                    2'b00 : next_state = 3'b010;
+                    2'b10 : next_state = 3'b011;
+                    2'b01 : next_state = 3'b010;
                 endcase
             end 3'b011: begin
                 case({a,b})
                 // synopsys full_case parallel_case
-                    2'b00 : begin 
-                        next_state = 3'b011;
-                    end 2'b10 : begin
-                        next_state = 3'b100;
-                    end 2'b01 : begin 
-                        next_state = 3'b011;
-                    end
+                    2'b00 : next_state = 3'b011;
+                    2'b10 : next_state = 3'b100;
+                    2'b01 : next_state = 3'b011;
                 endcase
             end 3'b100: begin
                 case({a,b})
                 // synopsys full_case parallel_case
-                    2'b00 : begin
-                        next_state = 3'b100
-                    end 2'b10 : begin 
-                        next_state = 3'b000;
-                    end 2'b01 : begin 
-                        next_state = 3'b100;
-                    end
+                    2'b00 : next_state = 3'b100;
+                    2'b10 : next_state = 3'b000;
+                    2'b01 : next_state = 3'b100;
                 endcase
             end 3'b101: next_state = 3'b000; //初期化(rst時)
         endcase
