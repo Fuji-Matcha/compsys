@@ -1,0 +1,12 @@
+read_verilog -sv bending_machine_mk2.v #svを忘れない
+read_liberty -lib ./osu018_stdcells.lib #lib読み込み
+proc #テンプレ
+flatten #テンプレ
+synth -auto-top #自動的にtopを判断
+write_verilog synth_bd_mk2.v #合成したものをいったん吐き出す
+dfflibmap -liberty ./osu018_stdcells.lib #FFをlibと対応
+abc -D 5000 -liberty ./osu018_stdcells.lib #その他の回路をlibと対応
+stat -liberty ./osu018_stdcells.lib #回路サイズなどの結果を出す
+write_verilog bd_mk2.v #最終的な合成結果
+#show #Mac用
+show -viewer gvedit # for windows user
