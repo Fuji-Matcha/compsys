@@ -20,3 +20,5 @@ bending_machine.vについて、tenがHIになるとstateが1になり、nstate�
 benging_machine1.vはラッチが生成されるためよろしくない。
 * ex7/  
 第8回で作ったコード。レジスタファイル、ALU、プログラムカウンタ、インストラクションメモリ、デコーダ(top.v)からなる。  
+* ex8/mydec/  
+第9回。ex7の強化版。直値代入、dmem等を追加。合成確認はしていない。  
